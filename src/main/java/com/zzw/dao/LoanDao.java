@@ -2,6 +2,7 @@ package com.zzw.dao;
 
 import com.zzw.entity.Loan;
 import com.zzw.entity.custom.LoanCustom;
+import com.zzw.entity.custom.LoanListVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface LoanDao {
      * @param borrowerId 借阅者主键
      * @return 借阅信息列表
      */
-    List<LoanCustom> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId);
+    List<LoanListVO> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId);
 
 }

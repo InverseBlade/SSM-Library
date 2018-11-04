@@ -4,6 +4,7 @@ import com.mchange.util.AssertException;
 import com.zzw.BaseTest;
 import com.zzw.entity.Loan;
 import com.zzw.entity.custom.LoanCustom;
+import com.zzw.entity.custom.LoanListVO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,8 +32,8 @@ public class LoanDaoTest extends BaseTest {
 
     @Test
     public void testSelectBorrowingByBorrowerId() {
-        List<LoanCustom> list = loanDao.selectBorrowingByBorrowerId(1);
-        for (LoanCustom loan : list) {
+        List<LoanListVO> list = loanDao.selectBorrowingByBorrowerId(1);
+        for (LoanListVO loan : list) {
             System.out.println(loan);
         }
     }

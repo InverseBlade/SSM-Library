@@ -24,20 +24,24 @@
         LIMIT #{offset},#{limit}
     </select>
 
-    <resultMap id="LoansWithItemWithTitle" type="LoanCustom">
-        <id property="id" column="loan.id"/>
+    <resultMap id="LoansWithItemWithTitle" type="LoanListVO">
+        <id property="loanId" column="loan_id"/>
         <result property="loanDate" column="loan_date"/>
+        <result property="borrowerId" column="borrower_id"/>
         <result property="dueDate" column="due_date"/>
         <result property="itemId" column="item_id"/>
-        <result property="borrowerId" column="borrower_id"/>
-        <association property="itemCustom" javaType="ItemCustom">
-            <id property="id" column="item.id"/>
-            <association property="title" javaType="Title"/>
-        </association>
+        <result property="libraryCode" column="library_code"/>
+        <result property="titleName" column="title_name"/>
     </resultMap>
 
     <select id="selectBorrowingByBorrowerId" resultMap="LoansWithItemWithTitle">
-        SELECT loan.*, item.*, title.*
+        SELECT loan.id    AS loan_id,
+               loan.loan_date,
+               loan.borrower_id,
+               loan.due_date,
+               loan.item_id,
+               item.library_code,
+               title.name AS title_name
         FROM zzw_loan AS loan
                  INNER JOIN zzw_item item ON loan.id = item.m_loan
                  INNER JOIN zzw_title title on item.title_id = title.id
