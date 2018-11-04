@@ -1,0 +1,11 @@
+<%@page contentType="text/html;charset=utf-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE>
+<html>
+<head>
+    <c:redirect url="/index/"/>
+</head>
+<body>
+<h2>404</h2>
+</body>
+</html>

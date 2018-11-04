@@ -1,0 +1,33 @@
+table, table tr th, table tr td {
+    border: 1px solid black;
+    padding: 0.25em;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    padding: 1em;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+}
+
+.box {
+    margin: 1em auto;
+    text-align: center;
+    width: 25%;
+}
+
+.flexible-box {
+    margin: 1em auto;
+    text-align: left;
+    width: auto;
+    display: inline-block !important;
+    display: inline;
+}
+
+.link-detail {
+
+}

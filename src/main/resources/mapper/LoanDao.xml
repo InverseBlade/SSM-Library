@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzw.dao.LoanDao">
+
+    <insert id="insertOneAndGetId" parameterType="Loan" keyProperty="id">
+        INSERT INTO zzw_loan (loan_date, borrower_id, due_date, item_id)
+        VALUES (#{loanDate}, #{borrowerId}, #{dueDate}, #{itemId})
+    </insert>
+
+    <select id="selectOneById" parameterType="int" resultType="Loan">
+        SELECT *
+        FROM zzw_loan
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectListByBorrowerId" resultType="Loan">
+        SELECT *
+        FROM zzw_loan
+        WHERE borrower_id = #{borrowerId}
+        ORDER BY loan_date DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <resultMap id="LoansWithItemWithTitle" type="LoanCustom">
+        <id property="id" column="loan.id"/>
+        <result property="loanDate" column="loan_date"/>
+        <result property="dueDate" column="due_date"/>
+        <result property="itemId" column="item_id"/>
+        <result property="borrowerId" column="borrower_id"/>
+        <association property="itemCustom" javaType="ItemCustom">
+            <id property="id" column="item.id"/>
+            <association property="title" javaType="Title"/>
+        </association>
+    </resultMap>
+
+    <select id="selectBorrowingByBorrowerId" resultMap="LoansWithItemWithTitle">
+        SELECT loan.*, item.*, title.*
+        FROM zzw_loan AS loan
+                 INNER JOIN zzw_item item ON loan.id = item.m_loan
+                 INNER JOIN zzw_title title on item.title_id = title.id
+        WHERE loan.borrower_id = #{borrowerId}
+    </select>
+
+</mapper>

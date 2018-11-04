@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzw.dao.BorrowerDao">
+
+    <select id="selectOneById" parameterType="int" resultType="Borrower">
+        SELECT *
+        FROM zzw_borrower
+        <where>
+            AND id = #{id}
+        </where>
+    </select>
+
+    <select id="selectOneByCardno" parameterType="String" resultType="Borrower">
+        SELECT *
+        FROM zzw_borrower
+        WHERE cardno = #{cardno}
+    </select>
+
+</mapper>

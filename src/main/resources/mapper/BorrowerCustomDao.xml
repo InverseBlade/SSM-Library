@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzw.dao.BorrowerCustomDao">
+
+    <resultMap id="BorrowerWithLoans" type="com.zzw.entity.custom.BorrowerCustom">
+
+        <!-- Borrower -->
+        <id property="id" column="borrower_id"/>
+        <result property="cardno" column="cardno"/>
+        <result property="department" column="department"/>
+        <result property="name" column="borrower_name"/>
+        <result property="type" column="borrower_type"/>
+
+        <!-- Loans -->
+        <collection property="loanCustoms" ofType="com.zzw.entity.custom.LoanCustom">
+            <id property="id" column="loan_id"/>
+            <result property="loanDate" column="loan_date"/>
+            <result property="borrowerId" column="borrower_id"/>
+            <result property="dueDate" column="due_date"/>
+            <!-- Item -->
+            <association property="itemCustom" javaType="com.zzw.entity.custom.ItemCustom">
+                <result property="id" column="item_id"/>
+                <result property="libraryCode" column="library_code"/>
+                <result property="titleId" column="title_id"/>
+                <result property="mLoan" column="loan_id"/>
+                <!-- Title -->
+                <association property="title" javaType="com.zzw.entity.Title">
+                    <id property="id" column="title_id"/>
+                    <result property="author" column="author"/>
+                    <result property="name" column="title_name"/>
+                    <result property="price" column="price"/>
+                    <result property="type" column="title_type"/>
+                </association>
+            </association>
+        </collection>
+
+    </resultMap>
+
+    <select id="getBorrowerWithLoansById" parameterType="int" resultMap="BorrowerWithLoans">
+        SELECT borrower.id   AS borrower_id,
+               borrower.cardno,
+               borrower.department,
+               borrower.name AS borrower_name,
+               borrower.type AS borrower_type,
+               loan.id       AS loan_id,
+               loan.loan_date,
+               loan.due_date,
+               item.id       AS item_id,
+               item.library_code,
+               item.title_id,
+               title.author,
+               title.name    AS title_name,
+               title.price,
+               title.type    AS title_type
+        FROM zzw_borrower AS borrower
+                 INNER JOIN zzw_loan AS loan ON borrower.id = loan.borrower_id
+                 INNER JOIN zzw_item AS item ON loan.id = item.m_loan
+                 INNER JOIN zzw_title AS title ON title.id = item.title_id
+        WHERE borrower.id = #{id}
+    </select>
+
+</mapper>

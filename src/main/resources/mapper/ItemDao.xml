@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzw.dao.ItemDao">
+
+    <insert id="insertOneAndGetId" parameterType="Item" keyProperty="id">
+        INSERT INTO zzw_item (library_code, m_loan, m_lose_book, m_reservation, title_id)
+        VALUES (#{libraryCode},
+                #{mLoan, jdbcType=INTEGER},
+                #{mLoseBook, jdbcType=INTEGER},
+                #{mReservation, jdbcType=INTEGER},
+                #{titleId})
+    </insert>
+
+    <select id="selectOneByLibraryCode" parameterType="String" resultType="Item">
+        SELECT zzw_item.*
+        FROM zzw_item
+        WHERE zzw_item.library_code = #{libraryCode}
+    </select>
+
+    <update id="updateOneById" parameterType="Item">
+        UPDATE zzw_item
+        <set>
+            m_loan = #{mLoan, jdbcType=INTEGER},
+            m_reservation = #{mLoseBook, jdbcType=INTEGER},
+            m_lose_book = #{mReservation, jdbcType=INTEGER},
+            <if test="libraryCode != null">
+                library_code = #{libraryCode},
+            </if>
+            <if test="titleId != null">
+                title_id = #{titleId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateOneLoanInfoById">
+        UPDATE zzw_item
+        SET m_loan = #{mLoan, jdbcType=INTEGER}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateOneReservationInfoById">
+        UPDATE zzw_item
+        SET m_reservation = #{mReservation, jdbcType=INTEGER}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateOneLoseInfoById">
+        UPDATE zzw_item
+        SET m_lose_book = #{mLoseBook, jdbcType=INTEGER}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

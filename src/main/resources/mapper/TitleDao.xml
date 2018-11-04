@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzw.dao.TitleDao">
+
+    <select id="selectOneById" parameterType="int" resultType="Title">
+        SELECT *
+        FROM zzw_title
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertOneAndGetId" parameterType="Title" keyProperty="id">
+        INSERT INTO zzw_title (author, isbn, name, price, total_number, type)
+        VALUES (#{author}, #{isbn}, #{name}, #{price}, #{totalNumber}, #{type})
+    </insert>
+
+    <update id="updateOneByIdSelective" parameterType="Title">
+        UPDATE zzw_title AS t
+        <set>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="borrowedNumber != null">
+                borrowed_number = #{borrowedNumber},
+            </if>
+            <if test="isbn != null">
+                isbn = #{isbn},
+            </if>
+            <if test="name != null">
+                t.name = #{name},
+            </if>
+            <if test="price != null">
+                t.price = #{price},
+            </if>
+            <if test="totalNumber != null">
+                t.total_number = #{totalNumber},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        <where>
+            AND t.id = #{id}
+        </where>
+    </update>
+
+    <select id="selectListByPaging" resultType="Title">
+        SELECT *
+        FROM zzw_title AS t
+        ORDER BY t.id ASC
+        LIMIT #{offset},#{limit}
+    </select>
+
+</mapper>
