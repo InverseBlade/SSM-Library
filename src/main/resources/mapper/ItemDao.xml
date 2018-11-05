@@ -14,6 +14,12 @@
                 #{titleId})
     </insert>
 
+    <select id="selectOneById" parameterType="int" resultType="Item">
+        SELECT *
+        FROM zzw_item
+        WHERE id = #{id}
+    </select>
+
     <select id="selectOneByLibraryCode" parameterType="String" resultType="Item">
         SELECT zzw_item.*
         FROM zzw_item

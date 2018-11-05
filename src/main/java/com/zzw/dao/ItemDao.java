@@ -7,6 +7,8 @@ public interface ItemDao {
 
     int insertOneAndGetId(Item item);
 
+    Item selectOneById(Integer id);
+
     Item selectOneByLibraryCode(String libraryCode);
 
     int updateOneById(Item item);

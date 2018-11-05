@@ -19,9 +19,9 @@ public class LoanDaoTest extends BaseTest {
 
     @Test
     public void testSelectListByBorrowerId() {
-        int page, offset, limit = 2;
+        int page, offset, limit = 20;
 
-        page = 2;
+        page = 0;
         offset = page * limit;
 
         List<Loan> loans = loanDao.selectListByBorrowerId(1, offset, limit);
