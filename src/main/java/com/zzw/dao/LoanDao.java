@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface LoanDao {
 
-    int insertOneAndGetId(Loan loan);
+    int insertOneAndGetId(Loan loan) throws Exception;
 
-    Loan selectOneById(Integer id);
+    Loan selectOneById(Integer id) throws Exception;
 
-    List<Loan> selectListByBorrowerId(@Param("borrowerId") Integer borrowerId, @Param("offset") Integer offset, @Param("limit") Integer limit);
+    List<Loan> selectListByBorrowerId(@Param("borrowerId") Integer borrowerId, @Param("offset") Integer offset, @Param("limit") Integer limit) throws Exception;
 
     /**
      * 获取借阅者所有正在借阅的信息列表
@@ -21,6 +21,6 @@ public interface LoanDao {
      * @param borrowerId 借阅者主键
      * @return 借阅信息列表
      */
-    List<LoanListVO> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId);
+    List<LoanListVO> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId) throws Exception;
 
 }

@@ -18,7 +18,7 @@ public class LoanDaoTest extends BaseTest {
     private LoanDao loanDao;
 
     @Test
-    public void testSelectListByBorrowerId() {
+    public void testSelectListByBorrowerId() throws Exception {
         int page, offset, limit = 20;
 
         page = 0;
@@ -31,7 +31,7 @@ public class LoanDaoTest extends BaseTest {
     }
 
     @Test
-    public void testSelectBorrowingByBorrowerId() {
+    public void testSelectBorrowingByBorrowerId() throws Exception {
         List<LoanListVO> list = loanDao.selectBorrowingByBorrowerId(1);
         for (LoanListVO loan : list) {
             System.out.println(loan);
@@ -39,12 +39,12 @@ public class LoanDaoTest extends BaseTest {
     }
 
     @Test
-    public void testSelectOneById() {
+    public void testSelectOneById() throws Exception {
         System.out.println(loanDao.selectOneById(2));
     }
 
     @Test
-    public void testInsertOneAndGetId() {
+    public void testInsertOneAndGetId() throws Exception {
         Loan loan = new Loan();
         loan.setDueDate(0);
         loan.setLoanDate(new Timestamp(new Date().getTime()));

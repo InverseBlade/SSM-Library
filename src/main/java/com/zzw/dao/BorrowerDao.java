@@ -4,8 +4,8 @@ import com.zzw.entity.Borrower;
 
 public interface BorrowerDao {
 
-    Borrower selectOneById(Integer id);
+    Borrower selectOneById(Integer id) throws Exception;
 
-    Borrower selectOneByCardno(String cardno);
+    Borrower selectOneByCardno(String cardno) throws Exception;
 
 }

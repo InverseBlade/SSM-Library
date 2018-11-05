@@ -11,19 +11,19 @@ public class ItemDaoTest extends BaseTest {
     private ItemDao itemDao;
 
     @Test
-    public void testSelectOneByLibraryCode() {
+    public void testSelectOneByLibraryCode() throws Exception {
         System.out.println(itemDao.selectOneByLibraryCode("LIB0001"));
     }
 
     @Test
-    public void testUpdateOneLoanInfoById() {
+    public void testUpdateOneLoanInfoById() throws Exception {
         int id = 3;
         itemDao.updateOneLoanInfoById(id, 8);
         System.out.println(itemDao.selectOneById(id));
     }
 
     @Test
-    public void testInsertOneAndGetId() {
+    public void testInsertOneAndGetId() throws Exception {
         Item item = new Item();
         item.setLibraryCode("LIB0000");
         item.setTitleId(2);
@@ -33,7 +33,7 @@ public class ItemDaoTest extends BaseTest {
     }
 
     @Test
-    public void testUpdateOneById() {
+    public void testUpdateOneById() throws Exception {
         Item item = new Item();
         item.setId(1);
         item.setmLoan(null);

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface TitleDao {
 
-    int insertOneAndGetId(Title title);
+    int insertOneAndGetId(Title title) throws Exception;
 
-    Title selectOneById(Integer id);
+    Title selectOneById(Integer id) throws Exception;
 
-    int updateOneByIdSelective(Title title);
+    int updateOneByIdSelective(Title title) throws Exception;
 
-    List<Title> selectListByPaging(@Param("offset") Integer offset, @Param("limit") Integer limit);
+    List<Title> selectListByPaging(@Param("offset") Integer offset, @Param("limit") Integer limit) throws Exception;
 
 }

@@ -13,7 +13,7 @@ public class TitleDaoTest extends BaseTest {
     private TitleDao titleDao;
 
     @Test
-    public void testSelectListByPaging() {
+    public void testSelectListByPaging() throws Exception {
         List<Title> titleList = titleDao.selectListByPaging(0, 50);
         for (Title title : titleList) {
             System.out.println(title);
@@ -21,7 +21,7 @@ public class TitleDaoTest extends BaseTest {
     }
 
     @Test
-    public void testInsertOneAndGetId() {
+    public void testInsertOneAndGetId() throws Exception {
         Title title = new Title();
         title.setName("测试书籍");
         title.setAuthor("张泽威");
@@ -35,7 +35,7 @@ public class TitleDaoTest extends BaseTest {
 
 
     @Test
-    public void testUpdateOneByIdSelective() {
+    public void testUpdateOneByIdSelective() throws Exception {
         Title title = titleDao.selectOneById(3);
         title.setBorrowedNumber(title.getBorrowedNumber() + 1);
         System.out.println(titleDao.updateOneByIdSelective(title));
