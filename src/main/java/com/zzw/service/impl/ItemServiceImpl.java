@@ -1,5 +1,6 @@
 package com.zzw.service.impl;
 
+import com.zzw.dao.BorrowerCustomDao;
 import com.zzw.dao.BorrowerDao;
 import com.zzw.dao.ItemDao;
 import com.zzw.dao.LoanDao;
@@ -24,11 +25,14 @@ public class ItemServiceImpl implements ItemService {
 
     private BorrowerDao borrowerDao;
 
+    private BorrowerCustomDao borrowerCustomDao;
+
     @Autowired
-    public ItemServiceImpl(ItemDao itemDao, LoanDao loanDao, BorrowerDao borrowerDao) {
+    public ItemServiceImpl(ItemDao itemDao, LoanDao loanDao, BorrowerDao borrowerDao, BorrowerCustomDao borrowerCustomDao) {
         this.itemDao = itemDao;
         this.loanDao = loanDao;
         this.borrowerDao = borrowerDao;
+        this.borrowerCustomDao = borrowerCustomDao;
     }
 
     @Override
@@ -74,25 +78,23 @@ public class ItemServiceImpl implements ItemService {
         if (null == item.getmLoan()) {
             throw new Exception("该物品还未被借阅!");
         }
-        List<LoanListVO> list = loanDao.selectBorrowingByBorrowerId(borrower.getId());
-        boolean flag = false;
-        for (LoanListVO loanListVO : list) {
-            if (loanListVO.getItemId().equals(item.getId())) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
+        Loan loan = loanDao.selectOneByBorrowerAndItem(borrower.getId(), item.getId());
+        if (loan == null) {
             throw new Exception("该借阅者没有借阅此书的记录!");
         }
         //TO-DO
 
+        itemDao.updateOneLoanInfoById(item.getId(), null);
 
         return 0;
     }
 
     @Override
-    public BorrowerCustom findBorrwerWithLoanList(String cardno) throws Exception {
-        return null;
+    public BorrowerCustom findBorrowerWithLoanList(String cardno) throws Exception {
+        Borrower borrower = borrowerDao.selectOneByCardno(cardno);
+        if (null == borrower) {
+            throw new Exception("借阅卡号无效!");
+        }
+        return borrowerCustomDao.getBorrowerWithLoansById(borrower.getId());
     }
 }

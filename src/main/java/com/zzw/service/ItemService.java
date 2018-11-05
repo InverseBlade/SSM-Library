@@ -15,6 +15,6 @@ public interface ItemService {
      * @return BorrowerCustom
      * @throws Exception 异常
      */
-    BorrowerCustom findBorrwerWithLoanList(String cardno) throws Exception;
+    BorrowerCustom findBorrowerWithLoanList(String cardno) throws Exception;
 
 }

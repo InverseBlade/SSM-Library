@@ -48,4 +48,12 @@
         WHERE loan.borrower_id = #{borrowerId}
     </select>
 
+    <select id="selectOneByBorrowerAndItem" resultType="Loan">
+        SELECT *
+        FROM zzw_loan AS loan
+                 INNER JOIN zzw_item item on loan.id = item.m_loan
+        WHERE loan.borrower_id = #{borrowerId, jdbcType=INTEGER}
+          AND item.id = #{itemId, jdbcType=INTEGER}
+    </select>
+
 </mapper>

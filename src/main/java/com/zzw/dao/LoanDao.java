@@ -23,4 +23,6 @@ public interface LoanDao {
      */
     List<LoanListVO> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId) throws Exception;
 
+    Loan selectOneByBorrowerAndItem(@Param("borrowerId") Integer borrowerId, @Param("itemId") Integer itemId) throws Exception;
+
 }
