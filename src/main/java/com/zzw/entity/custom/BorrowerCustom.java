@@ -9,6 +9,13 @@ public class BorrowerCustom extends Borrower {
 
     private List<LoanCustom> loanCustoms;
 
+    public List<LoanCustom> getLoanCustoms() {
+        return loanCustoms;
+    }
+
+    public void setLoanCustoms(List<LoanCustom> loanCustoms) {
+        this.loanCustoms = loanCustoms;
+    }
 
     @Override
     public String toString() {
