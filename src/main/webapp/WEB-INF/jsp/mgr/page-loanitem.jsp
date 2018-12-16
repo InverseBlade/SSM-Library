@@ -18,7 +18,7 @@
     <div class="box"><h1>图书管理员主页</h1></div>
     <div class="flexible-box">
         <div id="form2">
-            <form id="item-form">
+            <form id="item-form" method="post">
                 <table>
                     <tr>
                         <td>当前借阅者:</td>
@@ -29,11 +29,11 @@
                     </tr>
                     <tr>
                         <td><label for="item">物品编号：</label></td>
-                        <td><input type="text" name="librarycode" id="item"/></td>
+                        <td><input type="text" name="librarycode" id="item" required/></td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <button id="btnSubmit2">提交</button>
+                            <input type="submit" value="提交">
                         </td>
                     </tr>
                 </table>
@@ -71,22 +71,7 @@
 
 <script>
     $(document).ready(function () {
-        $("button#btnSubmit2").click(function () {
-            var $this = $(this);
-            $this.attr("disabled", true);
-            $.post("/mgr/loanitem",
-                $("form#item-form").serialize(),
-                function (res) {
-                    if (res.err_code == 0) {
-                        alert("借阅成功！");
-                        location.reload(true);
-                        return;
-                    } else {
-                        alert("Error: " + res.err_msg);
-                    }
-                    $this.attr("disabled", false);
-                });
-        });
+        $('form#item-form').attr("action", "/mgr/loanitem");
 
         $("a.return-action").click(function () {
             $(this).siblings('form').submit();

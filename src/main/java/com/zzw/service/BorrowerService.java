@@ -6,4 +6,6 @@ public interface BorrowerService {
 
     Borrower findBorrowerByCardno(String cardno) throws Exception;
 
+    Borrower findBorrowerById(Integer id) throws Exception;
+
 }

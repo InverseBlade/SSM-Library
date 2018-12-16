@@ -13,7 +13,9 @@ public interface LoanDao {
 
     Loan selectOneById(Integer id) throws Exception;
 
-    List<Loan> selectListByBorrowerId(@Param("borrowerId") Integer borrowerId, @Param("offset") Integer offset, @Param("limit") Integer limit) throws Exception;
+    List<Loan> selectListByBorrowerId(@Param("borrowerId") Integer borrowerId,
+                                      @Param("offset") Integer offset,
+                                      @Param("limit") Integer limit) throws Exception;
 
     /**
      * 获取借阅者所有正在借阅的信息列表
@@ -23,6 +25,7 @@ public interface LoanDao {
      */
     List<LoanListVO> selectBorrowingByBorrowerId(@Param("borrowerId") Integer borrowerId) throws Exception;
 
-    Loan selectOneByBorrowerAndItem(@Param("borrowerId") Integer borrowerId, @Param("itemId") Integer itemId) throws Exception;
+    Loan selectOneByBorrowerAndItem(@Param("borrowerId") Integer borrowerId,
+                                    @Param("itemId") Integer itemId) throws Exception;
 
 }

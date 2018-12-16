@@ -19,7 +19,7 @@ public class ItemServiceTest extends BaseTest {
             String libraryCode = "LIB0001";
             int code;
 
-            code = itemService.returnItem(libraryCode, cardno);
+            code = itemService.returnItem(libraryCode);
             if (code != 0) {
                 throw new Exception("未知错误");
             }

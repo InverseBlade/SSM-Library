@@ -24,4 +24,9 @@ public class BorrowerServiceImpl implements BorrowerService {
         }
         return borrower;
     }
+
+    @Override
+    public Borrower findBorrowerById(Integer id) throws Exception {
+        return borrowerDao.selectOneById(id);
+    }
 }

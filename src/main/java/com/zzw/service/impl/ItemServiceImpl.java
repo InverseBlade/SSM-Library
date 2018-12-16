@@ -1,14 +1,11 @@
 package com.zzw.service.impl;
 
-import com.zzw.dao.BorrowerCustomDao;
-import com.zzw.dao.BorrowerDao;
-import com.zzw.dao.ItemDao;
-import com.zzw.dao.LoanDao;
+import com.zzw.dao.*;
 import com.zzw.entity.Borrower;
 import com.zzw.entity.Item;
 import com.zzw.entity.Loan;
-import com.zzw.entity.custom.BorrowerCustom;
-import com.zzw.entity.custom.LoanListVO;
+import com.zzw.entity.Title;
+import com.zzw.entity.custom.*;
 import com.zzw.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +24,41 @@ public class ItemServiceImpl implements ItemService {
 
     private BorrowerCustomDao borrowerCustomDao;
 
+    private TitleDao titleDao;
+
     @Autowired
-    public ItemServiceImpl(ItemDao itemDao, LoanDao loanDao, BorrowerDao borrowerDao, BorrowerCustomDao borrowerCustomDao) {
+    public ItemServiceImpl(ItemDao itemDao,
+                           LoanDao loanDao,
+                           BorrowerDao borrowerDao,
+                           BorrowerCustomDao borrowerCustomDao,
+                           TitleDao titleDao) {
         this.itemDao = itemDao;
         this.loanDao = loanDao;
         this.borrowerDao = borrowerDao;
         this.borrowerCustomDao = borrowerCustomDao;
+        this.titleDao = titleDao;
+    }
+
+    @Override
+    public LoanAffirmInfo getLoanAffirmInfo(String libraryCode) throws Exception {
+        Item item = itemDao.selectOneByLibraryCode(libraryCode);
+        if (item == null) {
+            throw new Exception("书目编号不存在");
+        }
+        Loan loan = loanDao.selectOneById(item.getmLoan());
+        if (loan == null) {
+            throw new Exception("该物品未被借阅");
+        }
+        Borrower borrower = borrowerDao.selectOneById(loan.getBorrowerId());
+        Title title = titleDao.selectOneById(item.getTitleId());
+
+        LoanAffirmInfo loanAffirmInfo = new LoanAffirmInfo();
+        loanAffirmInfo.setLoan(loan);
+        loanAffirmInfo.setCardno(borrower.getCardno());
+        loanAffirmInfo.setLibraryCode(item.getLibraryCode());
+        loanAffirmInfo.setTitleName(title.getName());
+
+        return loanAffirmInfo;
     }
 
     @Override
@@ -65,12 +91,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public int returnItem(String libraryCode, String cardno) throws Exception {
+    public int returnItem(String libraryCode) throws Exception {
         //
-        Borrower borrower = borrowerDao.selectOneByCardno(cardno);
-        if (null == borrower) {
-            throw new Exception("借阅证号无效!");
-        }
         Item item = itemDao.selectOneByLibraryCode(libraryCode);
         if (null == item) {
             throw new Exception("项目编号不存在!");
@@ -78,12 +100,11 @@ public class ItemServiceImpl implements ItemService {
         if (null == item.getmLoan()) {
             throw new Exception("该物品还未被借阅!");
         }
-        Loan loan = loanDao.selectOneByBorrowerAndItem(borrower.getId(), item.getId());
+        Loan loan = loanDao.selectOneById(item.getmLoan());
         if (loan == null) {
-            throw new Exception("该借阅者没有借阅此书的记录!");
+            throw new Exception("数据库数据异常出错!");
         }
         //TO-DO
-
         itemDao.updateOneLoanInfoById(item.getId(), null);
 
         return 0;

@@ -19,6 +19,15 @@
 
     <mvc:annotation-driven/>
 
+    <!-- 用户登录验证拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/mgr/**"/>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.zzw.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 2.静态资源默认servlet配置
         (1)加入对静态资源的处理：js,gif,png
         (2)允许使用"/"做整体映射
@@ -34,4 +43,5 @@
 
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.zzw.web"/>
+
 </beans>

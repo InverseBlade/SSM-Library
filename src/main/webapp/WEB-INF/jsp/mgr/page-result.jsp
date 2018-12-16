@@ -9,13 +9,13 @@
 <%@include file="../common/tag.jsp" %>
 <html>
 <head>
-    <title>这是还书页面</title>
+    <title>${title}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <%@include file="../common/head.jsp" %>
 </head>
 <body>
 <div class="container">
-    <div class="box"><h1>归还物品信息结果</h1></div>
+    <div class="box"><h1>${title}</h1></div>
     <div class="flexible-box">
         <p>${result}</p>
         <p>${error_msg}</p>

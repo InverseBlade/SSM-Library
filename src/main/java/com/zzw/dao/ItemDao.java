@@ -13,11 +13,14 @@ public interface ItemDao {
 
     int updateOneById(Item item) throws Exception;
 
-    int updateOneLoanInfoById(@Param("id") Integer id, @Param("mLoan") Integer mLoan) throws Exception;
+    int updateOneLoanInfoById(@Param("id") Integer id,
+                              @Param("mLoan") Integer mLoan) throws Exception;
 
-    int updateOneReservationInfoById(@Param("id") Integer id, @Param("mReservation") Integer mReservation) throws Exception;
+    int updateOneReservationInfoById(@Param("id") Integer id,
+                                     @Param("mReservation") Integer mReservation) throws Exception;
 
-    int updateOneLoseInfoById(@Param("id") Integer id, @Param("mLoseBook") Integer mLoseBook) throws Exception;
+    int updateOneLoseInfoById(@Param("id") Integer id,
+                              @Param("mLoseBook") Integer mLoseBook) throws Exception;
 
 
 }

@@ -9,16 +9,16 @@
 <%@include file="../common/tag.jsp" %>
 <html>
 <head>
-    <title>这是借书主页</title>
+    <title>图书管理员后台</title>
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <%@include file="../common/head.jsp" %>
 </head>
 <body>
 <div class="container">
-    <div class="box"><h1>图书管理员主页</h1></div>
+    <div class="box"><h1>验证借阅证</h1></div>
     <div class="flexible-box">
         <div id="form1">
-            <form id="cardno-form">
+            <form method="post" id="cardno-form">
                 <table>
                     <tr>
                         <th colspan="2">请输入以下信息:</th>
@@ -48,7 +48,7 @@
                 $("form#cardno-form").serialize(),
                 function (res) {
                     if (res.err_code == 0) {
-                        window.location.assign("/mgr/" + res.data.cardno + "/loanview2");
+                        window.location.assign("${targetUrl}?cardno=" + $('input#cardno').val());
                         return;
                     } else {
                         alert("Error: " + res.err_msg);

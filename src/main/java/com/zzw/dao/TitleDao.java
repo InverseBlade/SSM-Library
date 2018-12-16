@@ -13,6 +13,7 @@ public interface TitleDao {
 
     int updateOneByIdSelective(Title title) throws Exception;
 
-    List<Title> selectListByPaging(@Param("offset") Integer offset, @Param("limit") Integer limit) throws Exception;
+    List<Title> selectListByPaging(@Param("offset") Integer offset,
+                                   @Param("limit") Integer limit) throws Exception;
 
 }
